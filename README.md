@@ -4,34 +4,50 @@
 
 - Git
 - Docker
+- Node.js
 
 ### Steps
 
-1. Pull the docker image containing the web app
-`docker pull automaticbytes/demo-app`
+1. Clone repository
+```bash
+git clone https://github.com/FabianaCarbajal/home-test.git
+cd home-test
+```
 
-2. Run the image
-`docker run -p 3100:3100 automaticbytes/demo-app`
+2. Install dependencies
+```bash
+npm install
+npx playwright install
+```
 
-3. Verify the app is shown in below url and set it as the base url for the tests.
-`http://localhost:3100`
+3. Pull the docker image containing the web app
+```bash
+docker pull automaticbytes/demo-app
+```
 
-4. Create in your personal github a public repository (name it for instance home-test).
+4. Run the image
+```bash
+docker run -d -p 3100:3100 --name demo-app automaticbytes/demo-app
+```
 
-5. Code requested exercises, commit and push your code and send the repository link according to the instructions given by the recruiter who contacted you.
+5. Verify the app is running
+Open browser to `http://localhost:3100`
 
-6. Forking this repository is not needed.
+6. Run tests
+```bash
+npm test
+```
 
 ### General requisites for submission
 
  1. **Programming languages**
-    - Java
-    - Javascript
-    - Typescript
+    - ~~Java~~
+    - ~~Javascript~~
+    - **Typescript** ✅
 
  2. **Drivers**
-    - Playwright
-    - Selenium
+    - **Playwright** ✅
+    - ~~Selenium~~
 
  3. **Browsers**
     - Cross-Browser Testing: Tests should be compatible with multiple browsers and ensure they behave consistently.
