@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  # Application under test
+  demo-app:
+    image: automaticbytes/demo-app
+    ports:
+      - "3100:3100"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3100"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - test-network
+
+  # Test execution environment
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      demo-app:
+        condition: service_healthy
+    environment:
+      - BASE_URL=http://demo-app:3100
+    volumes:
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+    networks:
+      - test-network
+    command: ["npm", "test"]
+
+  # Test execution with UI mode (for development)
+  tests-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      demo-app:
+        condition: service_healthy
+    environment:
+      - BASE_URL=http://demo-app:3100
+      - DISPLAY=:0
+    volumes:
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    networks:
+      - test-network
+    command: ["npm", "run", "test:ui"]
+    profiles:
+      - ui
+
+networks:
+  test-network:
+    driver: bridge
