@@ -1,0 +1,35 @@
+{
+  "name": "home-test-automation",
+  "version": "1.0.0",
+  "description": "Test automation project using Playwright and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "test:report": "npx playwright show-report",
+    "test:chromium": "npx playwright test --project=chromium",
+    "test:firefox": "npx playwright test --project=firefox",
+    "test:webkit": "npx playwright test --project=webkit",
+    "install:browsers": "npx playwright install",
+    "docker:build": "docker-compose build",
+    "docker:test": "docker-compose up --build tests",
+    "docker:test-ui": "docker-compose --profile ui up --build tests-ui",
+    "docker:down": "docker-compose down",
+    "start:app": "docker run -p 3100:3100 automaticbytes/demo-app"
+  },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "automation",
+    "testing"
+  ],
+  "author": "Test Automation Student",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.8.0",
+    "typescript": "^5.2.0"
+  }
+}
